@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { PostService } from "./post.service";
+import { responseHandler } from "../middlewares/response.middleware";
 
 
 export class PostController {
@@ -87,13 +88,10 @@ export class PostController {
             const take = req.query.take?Number(req.query.take):10
 
             const result = await this.postService.getAllPosts(page, take);
-
-            res.status(200).json({
-                success: true,
+            responseHandler({
                 data: result.data,
-                count: result.count,
-                
-            });
+                count: result.count
+            }, res)
         } catch (err: any) {
             next(err);
         }

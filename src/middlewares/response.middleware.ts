@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 
-export const responseHandler = (message:{data:any,code:number},req: Request, res:Response) =>{
+export const responseHandler = (data: any, res:Response) =>{
     res.status(200).json({
         success: true,
-        message: message.data
+        message: data
     })
 }

@@ -6,7 +6,6 @@ export const errorHandler = (err: HttpError, req: Request, res: Response, next: 
 
     res.status(status).json({
         success: false,
-        status,
         message: err.message || "Internal Server Error"
     })
 }
