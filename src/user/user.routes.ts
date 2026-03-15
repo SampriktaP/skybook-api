@@ -9,7 +9,5 @@ const userControl = new UserController();  //userControl is an object of UserCon
 
 router.post("/signup",dtoValidationMiddleware(SignUpUserDto),userControl.signup.bind(userControl));
 router.post("/login",dtoValidationMiddleware(LoginUserDto),userControl.login.bind(userControl));
-/* POST /user
-router.post("/", testUser);*/
 
 export default router;
