@@ -70,13 +70,14 @@ export class UserService {
         });
 
         // remove password
-        const { password, ...safeUser } = user;
+        const { password, posts, ...safeUser } = user;
 
             
         return {
                
             user: safeUser,
             token,
+            expiresIn: new Date().getTime() + 60 * 1000
       
         };
         
