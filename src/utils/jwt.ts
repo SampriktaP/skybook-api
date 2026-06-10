@@ -1,10 +1,21 @@
 import jwt from "jsonwebtoken";
 import { tokenType } from "../base/types";
+import { config } from "dotenv";
 
-const JWT_SECRET = ".m)fkOecQ4iUl8dhB/-mpkxO@5%VfAiCWcU%rc5H8D8";   //my secret key
+interface Token{   //creating a complex data type
+    token:string,
+    expiresIn:number
+}
 
-export function generateToken(payload: tokenType): string {            //payload is the data sent with the request
-    return jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" });
+config()
+const JWT_SECRET =process.env.JWT_SECRET as jwt.Secret;
+export function generateToken(payload: tokenType): Token {            //payload is the data sent with the request
+    return{
+        token :jwt.sign(payload, JWT_SECRET, { expiresIn: "1m" }),
+        expiresIn:new Date().getTime() + 60 * 1000    //1000 is ms hence 60 sec 
+    };
+    
+
 }
 
 export function verifyToken(token: string) {

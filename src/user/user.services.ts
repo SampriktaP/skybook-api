@@ -76,8 +76,9 @@ export class UserService {
         return {
                
             user: safeUser,
+            //token
             token,
-            expiresIn: new Date().getTime() + 60 * 1000
+            expiresIn: new Date().getTime()+60*1000
       
         };
         
