@@ -2,6 +2,7 @@ import express from "express";
 import { AppDataSource } from "./database/database";
 import postRoutes from "./post/post.route"
 import userRoutes from "./user/user.routes";
+import likeRoutes from "./like/like.route";
 import { errorHandler } from "./middlewares/error.middleware";
 import { responseHandler } from "./middlewares/response.middleware";
 import cors from "cors";
@@ -19,6 +20,7 @@ AppDataSource.initialize()
 
     app.use("/user", userRoutes);
     app.use("/post", postRoutes);
+    app.use("/like", likeRoutes);
 
     app.use(responseHandler);
     app.use(errorHandler);

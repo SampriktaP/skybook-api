@@ -2,6 +2,7 @@ import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { User } from "../user/user.entity";
 import { Post } from "../post/post.entity";
+import { Like } from "../like/like.entity";
 import { config } from 'dotenv' 
 
 config()
@@ -16,5 +17,5 @@ export const AppDataSource = new DataSource({
   ssl: process.env.PGSSLMODE === 'require' ? true : false,
   synchronize: true,
   logging: true,
-  entities: [User,Post],
+  entities: [User,Post,Like],
 });

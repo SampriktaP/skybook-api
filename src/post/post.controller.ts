@@ -62,24 +62,50 @@ export class PostController {
         }
     }
 
+    // async getPostsByUser(req: Request, res: Response, next: NextFunction) {
+    //     try {
+    //         const user = (req as any).user; 
+    //         const page = req.query.page?Number(req.query.page):1
+    //         const take = req.query.take?Number(req.query.take):10
+
+    //         const result = await this.postService.getPostsByUser(user.userId, page, take);
+
+    //         res.status(200).json({
+    //             success: true,
+    //             data: result.data,
+    //             count: result.count,
+                
+    //         });
+    //     } catch (err: any) {
+    //         next(err);
+    //     }
+    // }
+
     async getPostsByUser(req: Request, res: Response, next: NextFunction) {
-        try {
-            const user = (req as any).user; 
-            const page = req.query.page?Number(req.query.page):1
-            const take = req.query.take?Number(req.query.take):10
+    try {
+        const user = (req as any).user;
+        const page = req.query.page ? Number(req.query.page) : 1;
+        const take = req.query.take ? Number(req.query.take) : 10;
 
-            const result = await this.postService.getPostsByUser(user.userId, page, take);
+        const result = await this.postService.getPostsByUser(
+            user.userId,
+            page,
+            take
+        );
 
-            res.status(200).json({
-                success: true,
+        responseHandler(
+            {
                 data: result.data,
                 count: result.count,
-                
-            });
-        } catch (err: any) {
-            next(err);
-        }
+            },
+            res
+        );
+        
+
+    } catch (err: any) {
+        next(err);
     }
+}
 
 
     async getAllPosts(req: Request, res: Response, next: NextFunction) {

@@ -6,6 +6,7 @@ import {
   OneToMany
 } from "typeorm";
 import { Post } from "../post/post.entity";
+import { Like } from "../like/like.entity";
 
 @Entity("users")
 export class User {
@@ -31,5 +32,8 @@ export class User {
   // One user can have many posts
   @OneToMany(() => Post, (post) => post.user)
   posts: Post[];
+
+  @OneToMany(() => Like, like => like.user)
+  likes: Like[];
 
 }

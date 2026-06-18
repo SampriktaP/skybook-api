@@ -5,8 +5,10 @@ import {
   ManyToOne,
   CreateDateColumn,
   JoinColumn,
+  OneToMany,
 } from "typeorm";
 import { User } from "../user/user.entity";
+import { Like } from "../like/like.entity";
 
 @Entity("posts")
 export class Post {
@@ -30,4 +32,7 @@ export class Post {
  
   @ManyToOne(() => User, (users: { posts: any; }) => users.posts)  //since one user can have many posts 
   user: User;
+
+  @OneToMany(() => Like, like => like.post)
+  likes: Like[];
 }
