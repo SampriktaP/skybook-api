@@ -12,8 +12,14 @@ const JWT_SECRET =process.env.JWT_SECRET as jwt.Secret;
 export function generateToken(payload: tokenType): Token {            //payload is the data sent with the request
     return{
         token :jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" }),
-        expiresIn:new Date().getTime() + 60 *60* 1000    //1000 is ms hence 60 sec 
+        expiresIn:new Date().getTime() + 24*60 * 60 *1000    //1000 is ms hence 60 sec 
     };
     
 }
+
+export function verifyToken(token: string) {
+    return jwt.verify(token, JWT_SECRET);
+}
+
+
 

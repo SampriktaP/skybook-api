@@ -9,9 +9,7 @@ const likeController = new LikeController();
 
 router.use(authMiddleware);
 
-router.post(
-    "/:postId",
-    likeController.toggleLike.bind(likeController)
+router.post("/:postId",likeController.toggleLike.bind(likeController)
 );
 
 export default router;

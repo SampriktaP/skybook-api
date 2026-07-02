@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-//import { verifyToken } from "../utils/jwt";
+import { verifyToken } from "../utils/jwt";
+
 
 export function authMiddleware(
     req: Request,
@@ -30,6 +31,4 @@ export function authMiddleware(
     }
 }
 
-function verifyToken(token: string) {
-    throw new Error("Function not implemented.");
-}
+

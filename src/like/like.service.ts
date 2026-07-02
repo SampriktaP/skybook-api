@@ -17,27 +17,42 @@ export class LikeService {
   }
 
   async toggleLike(postId: string, userId: string) {
-
+    // FIX: Removed the 'relations' block completely to stop the circular reference crash
     const existingLike = await this.likeRepo.findOne({
       where: {
         user: {
-          id: userId
+          id: userId,
+          
         },
         post: {
           id: postId
-        }
+        },
+
       },
-      relations: {
-        user: true,
-        post: true
+
+    });
+
+    const post = await this.postRepo.findOne({
+      where: {
+        id: postId
       }
     });
 
+
+    if (!post) {
+      throw new Error("Post not found");
+    }
+    
     if (existingLike) {
       await this.likeRepo.remove(existingLike);
 
+      post.likecount -= 1
+      this.postRepo.save(post)
+
+
       return {
-        liked: false
+        liked: false,
+        likecount:post.likecount
       };
     }
 
@@ -47,21 +62,18 @@ export class LikeService {
       }
     });
 
-    const post = await this.postRepo.findOne({
-      where: {
-        id: postId
-      }
-    });
-
     const like = new Like();
-
     like.user = user as User;
-    like.post = post as Post;
+    post.likecount += 1;
+    like.post = post;
 
+    await this.postRepo.save(post);
     await this.likeRepo.save(like);
+  
 
     return {
-      liked: true
+      liked: true,
+      likecount:post.likecount
     };
   }
 }

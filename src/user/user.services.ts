@@ -81,47 +81,10 @@ export class UserService {
             expiresIn: new Date().getTime()+60*1000
       
         };
-        
-
-        /*checks password
-        if (user.password !== data.password) {
-            throw new Error("Invalid password");
-        }*/
-
-        //login successful
-        //return user;
     }
-
-    //get user
-    // async getUser(id:string):Promise<User>{
-    //     const user = await this.userRepo.findOne({
-    //         where:{id},
-    //         select:{
-    //             id:true,
-    //             name:true,
-    //             email:true,
-    //             createdAt: true
-    //         }
-    //     });
-
-    //     if(!user){
-    //         throw createHttpError.NotFound("User not found");
-    //     }
-
-    //     return user;
-    // }
-
 }
 
 
 
 
-/*
-const { name,gender,email } = data;
 
-return {
-    name,
-    gender,
-    email,
-    createdAt: new Date()
-};*/

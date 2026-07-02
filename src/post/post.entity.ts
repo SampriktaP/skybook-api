@@ -35,4 +35,10 @@ export class Post {
 
   @OneToMany(() => Like, like => like.post)
   likes: Like[];
+
+  @Column({ type: "integer",default: 0 })
+    likecount: number;
+
+  @Column({ type: "integer",default: 0 })
+    sharecount: number;
 }
