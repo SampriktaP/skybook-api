@@ -1,9 +1,9 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import { User } from "../user/user.entity";
 import { Post } from "../post/post.entity";
 import { Like } from "../like/like.entity";
 import { config } from 'dotenv' 
+import { User } from "../user/user.entity";
 
 config()
 console.log(process.env.PGHOST)

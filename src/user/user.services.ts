@@ -1,10 +1,9 @@
-import { OptionalUnlessRequiredId, Repository } from "typeorm";
+import { Repository } from "typeorm";
 import { AppDataSource } from "../database/database";
-import { LoginUserDto, SignUpUserDto } from "../user/user.dto";
 import { User } from "./user.entity";
 import bcrypt from "bcrypt";
-import { generateToken } from "../utils/jwt";
 import createHttpError from "http-errors";
+import { CreateUserDto } from "./user.dto";
 
 export class UserService {
     private userRepo: Repository<User>;
@@ -13,8 +12,7 @@ export class UserService {
         this.userRepo = AppDataSource.getRepository(User);
     }
 
-    //signup
-    async signup(data: SignUpUserDto): Promise<User> {
+    async createUser(data: CreateUserDto): Promise<User> {
 
         // checking if user already exists?
         const existingUser = await this.userRepo.findOneBy({
@@ -40,47 +38,16 @@ export class UserService {
         return await this.userRepo.save(user);
     }
 
-
-    //login
-    async login(data: LoginUserDto){
-
-        //checks if user exists?
+    async getUserByEmail(email: string){
         const user = await this.userRepo.findOneBy({
-            email: data.email,
+            email,
         });
 
         if (!user) {
-            throw new Error("User not found");
+            throw createHttpError.NotFound("User not found")
         }
-
-        //compare hashed password
-        const isPasswordValid = await bcrypt.compare(
-            data.password,
-            user.password
-        );
-
-        if (!isPasswordValid) {
-            throw new Error("Invalid password");
-        }
-            
-        //create token
-        const token = generateToken({
-            userId: user.id,
-            email: user.email,
-        });
-
-        // remove password
-        const { password, posts, ...safeUser } = user;
-
-            
-        return {
-               
-            user: safeUser,
-            //token
-            token,
-            expiresIn: new Date().getTime()+60*1000
-      
-        };
+        const { password, ...safeUser } = user;   
+        return safeUser
     }
 }
 

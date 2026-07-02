@@ -6,6 +6,7 @@ import createHttpError from "http-errors";
 import { User } from "../user/user.entity";
 
 
+
 export class PostService {
   private postRepo: Repository<Post>;
   private userRepo: Repository<User>;
@@ -52,8 +53,6 @@ export class PostService {
 
     return post;
   }
-
-
 
   async deletePost(id: string): Promise<void> {
     const post = await this.postRepo.findOne({
@@ -113,5 +112,4 @@ export class PostService {
       data, count
     }
   }
-
 }

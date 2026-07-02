@@ -7,8 +7,8 @@ import {
   JoinColumn,
   OneToMany,
 } from "typeorm";
-import { User } from "../user/user.entity";
 import { Like } from "../like/like.entity";
+import { User } from "../user/user.entity";
 
 @Entity("posts")
 export class Post {

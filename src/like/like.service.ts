@@ -1,9 +1,8 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../database/database";
-
 import { Like } from "./like.entity";
-import { User } from "../user/user.entity";
 import { Post } from "../post/post.entity";
+import { User } from "../user/user.entity";
 
 export class LikeService {
   private likeRepo: Repository<Like>;

@@ -10,7 +10,7 @@ export interface CreateUserDto {
 
 import { IsEmail, IsString, MinLength } from "class-validator";
 
-export class CreateUserDto {     // POST /signup
+export class SignUpUserDto {     // POST /signup
 
   @IsString()
   name: string;

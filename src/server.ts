@@ -1,11 +1,12 @@
 import express from "express";
 import { AppDataSource } from "./database/database";
 import postRoutes from "./post/post.route"
-import userRoutes from "./user/user.routes";
 import likeRoutes from "./like/like.route";
+
 import { errorHandler } from "./middlewares/error.middleware";
 import { responseHandler } from "./middlewares/response.middleware";
 import cors from "cors";
+import mainRouter from "./routes";
 const app = express();
 
 app.use(cors())
@@ -18,9 +19,7 @@ AppDataSource.initialize()
     console.log("Database connected");
     console.log(AppDataSource.isInitialized);
 
-    app.use("/user", userRoutes);
-    app.use("/post", postRoutes);
-    app.use("/like", likeRoutes);
+    app.use("/api/v1", mainRouter);
 
     app.use(responseHandler);
     app.use(errorHandler);
@@ -32,5 +31,3 @@ AppDataSource.initialize()
   .catch((error) => {
     console.error("Database connection failed", error);
   });
-
-  
